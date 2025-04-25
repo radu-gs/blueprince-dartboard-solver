@@ -53,9 +53,13 @@ function toggleColorBull(element) {
     switch (bullColor) {
       case 0:
         path.setAttribute("fill", path.getAttribute("origfill"));
+        path.removeAttribute("stroke");
+        path.removeAttribute("stroke-width")
         break;
       default:
         path.setAttribute("fill", colors[bullColor]);
+        path.setAttribute("stroke", "white")
+        path.setAttribute("stroke-width", "0.75")
     }
   }
 }
@@ -241,18 +245,21 @@ function updateScoreSector(element) {
       element.removeAttribute("mask");
       element.setAttribute("fill", element.getAttribute("origfill"));
       element.setAttribute("stroke", "#000");
+      element.removeAttribute("stroke")
       break;
     case 1:
       element.setAttribute("opacity", "1");
       element.removeAttribute("mask");
       element.setAttribute("fill", targetcolor);
-      element.setAttribute("stroke", targetcolor);
+      element.setAttribute("stroke", 'white');
+      element.setAttribute("stroke-width", "0.75");
       break;
     case 2:
       element.setAttribute("opacity", "1");
       element.setAttribute("mask", "url(#hatchMask)");
       element.setAttribute("fill", targetcolor);
-      element.setAttribute("stroke", targetcolor);
+      element.setAttribute("stroke", 'white');
+      element.setAttribute("stroke-width", "0.75");
   }
 }
 
