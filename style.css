@@ -27,6 +27,10 @@
 }
 .colorlabel
 {min-width: 9em;}
+
+footer{
+  background-color: #101010;
+}
 /* 
 @media (orientation: portrait) {
   .dartboardwrapper {
