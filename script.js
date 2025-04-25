@@ -6,7 +6,7 @@ let colors = [
   "rgb(120, 94, 240)",
 ];
 
-function populateInfoBox(){
+function populateInfoBox() {
   let info = document.getElementById('infosource').innerHTML;
   for (const infobox of document.getElementsByClassName('infobox')) {
     infobox.innerHTML = info;
@@ -19,20 +19,10 @@ let opnames = ["None", "Addition/Blue", "Subtraction/Yellow", "Multiplication/Pi
 let currentColors = [0, 0, 0, 0];
 let bullColor = 0;
 
-document.addEventListener('DOMContentLoaded', () => {
-const targetDiv = document.getElementById("mainbody")
-targetDiv.addEventListener('click', (event) => {
-  setTimeout(() => {
-    console.log('done')
-      getResult();
-  }, 100); // Delay in milliseconds
-});
-});
-
 function toggleColor(element) {
   let value = parseInt(element.getAttribute("value"));
   let ringIndex = parseInt(element.getAttribute("id").split("ringt")[1]) - 1;
-    value = (value + 1) % 5;
+  value = (value + 1) % 5;
   element.setAttribute("value", value.toString())
   currentColors[ringIndex] = value;
   document.getElementById(element.getAttribute("id") + 'color').style.backgroundColor = colors[currentColors[ringIndex]];
@@ -172,8 +162,8 @@ function getResult() {
       else operationstring += boardvalue.number.toString()
 
       //is it squared/doubled?
-      if (modvalue==7) operationstring += '^2'
-      if (modvalue==8) operationstring += '^4'
+      if (modvalue == 7) operationstring += '^2'
+      if (modvalue == 8) operationstring += '^4'
 
       //perform operation respecting repeats
       for (let index = 0; index <= repeats; index++) {
@@ -238,7 +228,7 @@ function updateScoreSector(element) {
   let elstate = parseInt(element.getAttribute("state"));
   let ring = parseInt(element.getAttribute("id").split("ring")[1].split("-")[0]);
   let targetcolor = colors[currentColors[ring - 1]];
-  if (targetcolor=='transparent') targetcolor = 'rgb(255,255,255)'
+  if (targetcolor == 'transparent') targetcolor = 'rgb(255,255,255)'
   switch (elstate) {
     case 0:
       element.setAttribute("opacity", "0.6");
@@ -263,9 +253,9 @@ function updateScoreSector(element) {
   }
 }
 
-function resetBoard(){
-  
-  for (let button of document.querySelectorAll('button[id^="ringt"]')){
+function resetBoard() {
+
+  for (let button of document.querySelectorAll('button[id^="ringt"]')) {
     button.setAttribute('value', 4);
     toggleColor(button)
   }
@@ -275,15 +265,17 @@ function resetBoard(){
   toggleColorBull(bullButton)
 
   for (const path of document.querySelectorAll('g[id^="ring"] > path:not([state="0"])')) {
-    path.setAttribute("state","0")
+    path.setAttribute("state", "0")
     updateScoreSector(path);
   }
-  for (const path of document.querySelectorAll('g[id^="modicon-"] *, g[id="innermods"] *, g[id="outerbullmods"] *')){
+  for (const path of document.querySelectorAll('g[id^="modicon-"] *, g[id="innermods"] *, g[id="outerbullmods"] *')) {
     path.setAttribute("display", "none");
   }
-  for (const path of document.querySelectorAll('[state]:not([state="0"])')){
+  for (const path of document.querySelectorAll('[state]:not([state="0"])')) {
     path.setAttribute("state", "0")
   }
+
+  document.getElementById("resultField").textContent = "0"
 
   console.log('done')
 }
@@ -383,7 +375,7 @@ function toggleRimModState(element) {
       icon_rimsquare.setAttribute("display", "none");
       icon_rimdoublesquare.setAttribute("display", "none");
       break;
-      case 7: //square
+    case 7: //square
       icon_strike.setAttribute("display", "none");
       icon_div.setAttribute("display", "none");
       icon_rimdiamond.setAttribute("display", "none");
@@ -394,7 +386,7 @@ function toggleRimModState(element) {
       icon_rimsquare.setAttribute("display", "inline");
       icon_rimdoublesquare.setAttribute("display", "none");
       break;
-      case 8: //double square ^4
+    case 8: //double square ^4
       icon_strike.setAttribute("display", "none");
       icon_div.setAttribute("display", "none");
       icon_rimdiamond.setAttribute("display", "none");
