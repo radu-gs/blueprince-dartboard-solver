@@ -3,51 +3,33 @@
   user-select: none;
 }
 
-.fullwidthbutton{
+.fullwidthbutton {
   width: 100%;
   min-width: 10em;
 }
 
-.btn{
+.btn {
   width: 100%;
 }
 
 
-#resultfield{
+#resultfield {
   min-width: 2em;
 }
 
-.dartview{
+.dartview {
   min-height: 120vh;
 }
 
-.colorCell{
+.colorCell {
   height: 100%;
   width: 100%;
 }
-.colorlabel
-{min-width: 9em;}
 
-footer{
-  background-color: #101010;
-}
-/* 
-@media (orientation: portrait) {
-  .dartboardwrapper {
-    width: 100vw; 
-    height: auto; 
-  }
+.colorlabel {
+  min-width: 9em;
 }
 
-@media (orientation: landscape) {
-  .dartboardwrapper {
-    max-height: 80vh; 
-    max-width: 80vh;
-    min-height: 80vh;
-  }
-} 
-*/
-
-#labels>text>tspan{
+#labels>text>tspan {
   letter-spacing: -1px;
 }
