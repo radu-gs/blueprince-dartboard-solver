@@ -1,0 +1,52 @@
+#labels>text,
+#rounding>path {
+  user-select: none;
+}
+
+.fullwidthbutton{
+  width: 100%;
+  min-width: 10em;
+}
+
+.btn{
+  width: 100%;
+}
+
+
+#resultfield{
+  min-width: 2em;
+}
+
+.dartview{
+  min-height: 120vh;
+}
+
+.colorCell{
+  height: 100%;
+  width: 100%;
+  min-height: 2em;
+  min-width: 2em;
+  max-width: 4em;
+}
+.colorlabel
+{min-width: 9em;}
+/* 
+@media (orientation: portrait) {
+  .dartboardwrapper {
+    width: 100vw; 
+    height: auto; 
+  }
+}
+
+@media (orientation: landscape) {
+  .dartboardwrapper {
+    max-height: 80vh; 
+    max-width: 80vh;
+    min-height: 80vh;
+  }
+} 
+*/
+
+#labels>text>tspan{
+  letter-spacing: -1px;
+}
