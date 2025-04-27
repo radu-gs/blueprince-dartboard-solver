@@ -1,9 +1,16 @@
+:root {
+  --blue: rgb(100, 143, 255);
+  --yellow: rgb(255, 176, 0);
+  --pink: rgb(220, 38, 127);
+  --purple: rgb(120, 94, 240);
+}
+
 #labels>text,
 #rounding>path {
   user-select: none;
 }
 
-.fullwidthbutton {
+.colorbutton {
   width: 100%;
   min-width: 10em;
 }
@@ -32,4 +39,53 @@
 
 #labels>text>tspan {
   letter-spacing: -1px;
+}
+
+.sector1{
+fill: var(--blue);
+}
+
+.sector2{
+fill: var(--yellow);
+}
+
+.sector3{
+fill: var(--pink);
+}
+
+.sector4{
+fill: var(--purple);
+}
+
+.cellcolor1{
+  background-color: var(--blue);
+}
+
+.cellcolor2{
+  background-color: var(--yellow);
+}
+
+.cellcolor3{
+  background-color: var(--pink);
+}
+
+.cellcolor4{
+  background-color: var(--purple);
+}
+
+.cellcolor0{
+  background: none;
+}
+
+.sectorline{
+  stroke:white;
+  stroke-width: 0.75;
+}
+
+.sector0{
+  fill:white
+}
+
+.sectormask{
+  mask: url(#hatchMask);
 }

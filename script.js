@@ -1,11 +1,3 @@
-let colors = [
-  "transparent",
-  "rgb(100, 143, 255)",
-  "rgb(255, 176, 0)",
-  "rgb(220, 38, 127)",
-  "rgb(120, 94, 240)",
-];
-
 function populateInfoBox() {
   let info = document.getElementById('infosource').innerHTML;
   for (const infobox of document.getElementsByClassName('infobox')) {
@@ -14,43 +6,30 @@ function populateInfoBox() {
 
 }
 
-
 let opnames = ["None", "Addition/Blue", "Subtraction/Yellow", "Multiplication/Pink", "Division/Purple"];
 let currentColors = [0, 0, 0, 0];
 let bullColor = 0;
 
 function toggleColor(element) {
   let value = parseInt(element.getAttribute("value"));
-  let ringIndex = parseInt(element.getAttribute("id").split("ringt")[1]) - 1;
   value = (value + 1) % 5;
   element.setAttribute("value", value.toString())
-  currentColors[ringIndex] = value;
-  document.getElementById(element.getAttribute("id") + 'color').style.backgroundColor = colors[currentColors[ringIndex]];
-  document.getElementById(element.getAttribute("id") + 'label').textContent = opnames[currentColors[ringIndex]];
-  for (const path of document.querySelectorAll('g[id^="ring"] > path:not([state="0"])')) {
-    updateScoreSector(path);
-  }
-}
+  let id = element.getAttribute("id")
 
-function toggleColorBull(element) {
-  let value = parseInt(element.getAttribute("value"));
-  value = (value + 1) % 5;
-  element.setAttribute("value", value.toString())
-  bullColor = value;
-  document.getElementById(element.getAttribute("id") + 'color').style.backgroundColor = colors[bullColor];
-  document.getElementById(element.getAttribute("id") + 'label').textContent = opnames[bullColor];
-  for (const path of document.querySelectorAll('path#innerbullbg, path#outerbullbg')) {
-    switch (bullColor) {
-      case 0:
-        path.setAttribute("fill", path.getAttribute("origfill"));
-        path.removeAttribute("stroke");
-        path.removeAttribute("stroke-width")
-        break;
-      default:
-        path.setAttribute("fill", colors[bullColor]);
-        path.setAttribute("stroke", "white")
-        path.setAttribute("stroke-width", "0.75")
+  document.getElementById(id + 'color').setAttribute('class', 'colorCell cellcolor'+value);
+  document.getElementById(id + 'label').textContent = opnames[value];
+  if (id.includes('ring')) {
+    let ringIndex = parseInt(element.getAttribute("id").split("ringt")[1]) - 1;
+    currentColors[ringIndex] = value;
+    for (const path of document.querySelectorAll('g[id^="ring' + (ringIndex + 1).toString() + '"] > path:not([state="0"])')) {
+      updateScoreSector(path)
     }
+  }
+  else {
+    bullColor = value;
+    let bullbackground = document.getElementById('bullbg')
+    if (value == 0) bullbackground.removeAttribute('class')
+    else bullbackground.setAttribute('class', 'sector' + value + ' sectorline')
   }
 }
 
@@ -227,46 +206,29 @@ function toggleScoreSector(element) {
 function updateScoreSector(element) {
   let elstate = parseInt(element.getAttribute("state"));
   let ring = parseInt(element.getAttribute("id").split("ring")[1].split("-")[0]);
-  let targetcolor = colors[currentColors[ring - 1]];
-  if (targetcolor == 'transparent') targetcolor = 'rgb(255,255,255)'
+  let targetcolor = currentColors[ring - 1];
   switch (elstate) {
     case 0:
-      element.setAttribute("opacity", "0.6");
-      element.removeAttribute("mask");
-      element.setAttribute("fill", element.getAttribute("origfill"));
-      element.setAttribute("stroke", "#000");
-      element.removeAttribute("stroke")
+      element.removeAttribute('class');
       break;
     case 1:
-      element.setAttribute("opacity", "1");
-      element.removeAttribute("mask");
-      element.setAttribute("fill", targetcolor);
-      element.setAttribute("stroke", 'white');
-      element.setAttribute("stroke-width", "0.75");
+      element.setAttribute('class', 'sector' + targetcolor + ' sectorline')
       break;
     case 2:
-      element.setAttribute("opacity", "1");
-      element.setAttribute("mask", "url(#hatchMask)");
-      element.setAttribute("fill", targetcolor);
-      element.setAttribute("stroke", 'white');
-      element.setAttribute("stroke-width", "0.75");
+      element.setAttribute('class', 'sector' + targetcolor + ' sectorline sectormask')
   }
 }
 
 function resetBoard() {
 
-  for (let button of document.querySelectorAll('button[id^="ringt"]')) {
+  for (let button of document.getElementsByClassName('colorbutton')) {
     button.setAttribute('value', 4);
     toggleColor(button)
   }
 
-  let bullButton = document.getElementById('bullt')
-  bullButton.setAttribute('value', 4)
-  toggleColorBull(bullButton)
-
   for (const path of document.querySelectorAll('g[id^="ring"] > path:not([state="0"])')) {
     path.setAttribute("state", "0")
-    updateScoreSector(path);
+    path.removeAttribute("class");
   }
   for (const path of document.querySelectorAll('g[id^="modicon-"] *, g[id="innermods"] *, g[id="outerbullmods"] *')) {
     path.setAttribute("display", "none");
@@ -277,7 +239,6 @@ function resetBoard() {
 
   document.getElementById("resultField").textContent = "0"
 
-  console.log('done')
 }
 
 function toggleRimModState(element) {
